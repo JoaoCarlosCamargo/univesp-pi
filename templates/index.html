@@ -1,9 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Semear Americana {% endblock %}</h1>
-    Semeando em terra fértil
-    <br><br>
+	<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+
+	<hr>
+
+    <h1>Quem Somos</h1>
+    A Semear Americana é uma Organização da Sociedade Civil, inscrita sob o CNPJ 32.787.100/0001-04, fundada em 2016 que atende mais de 150 crianças e adolescentes em situação de vulnerabilidade social na comunidade do Zincão e arredores, localizada no bairro Parque da Liberdade, cidade de Americana. Estamos empenhados em proporcionar um ambiente enriquecedor de oportunidades que contribuam para o desenvolvimento integral desses jovens, promovendo transformações positivas em suas vidas e impactando na comunidade em que estão inseridos.
+	<br><br>
+	Em 2016 nasceu a Semear, um sonho realizado de nossa presidente e fundadora Bianca Vanessa Cordasso Ferraz, uma voluntária que dedica sua vida à este trabalho com muito amor e determinação!
+
+	<hr>
+
+	<h1>Visão Semear</h1>
+	Buscamos ser referência na transformação de vidas, reconhecendo que a mudança em crianças e adolescentes reverbera em suas famílias. Apresentamos diversas possibilidades e recursos, visando criar uma comunidade em que todos possuam acesso aos meios necessários para construir uma realidade distinta da experienciada, promovendo assim autonomia e superação de adversidades iniciais. Nosso compromisso reside em impactar positivamente não apenas indivíduos, mas também as estruturas familiares e a comunidade como um todo.
+
+	<hr>
+
+	<h1>Missão Semear</h1>
+	Almejamos promover o desenvolvimento integral de crianças e adolescentes em situação de vulnerabilidade social. Para isso, criamos um ambiente que abrange o crescimento físico, cognitivo, emocional e social, oferecendo oportunidades educacionais, esportivas, culturais e sociais, atendendo além das necessidades básicas e contribuindo para a formação desses indivíduos como seres humanos. Dessa forma, buscamos não apenas transformar vidas individualmente, mas também contribuir para a construção de uma sociedade resiliente, justa e promissora.
+
+	<hr>
+
+	<h1>Sobre a comunidade</h1>
+	A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+
+	<hr>
+
+	<h1>Cadastros e certificações</h1>
+	Devidamente regularizados, atendemos todos os requisitos legais para nosso funcionamento. Com inscrições em conselhos, utilidade pública e reconhecimento pela rede municipal a Organização demonstra um compromisso sério e transparente com nossas operações, fundamental para o sucesso e impacto positivo das atividades realizadas.
+	<br><br>
+	<h2>Inscrita no CMDCA</h2>
+	Registrada e regularizada no Conselho Municipal dos Direitos da Criança e do Adolescente, órgão responsável pelas políticas públicas de defesa de direitos e promoção do bem estar social da criança e do adolescente no Município.
+	<br><br>
+	<h2>Inscrita no CMAS</h2>
+	Registrada e regularizada no Conselho Municipal de Assistência Social, orgão responsável por orientar, fiscalizar e formular a política pública de assistência social no município.
+	<br><br>
+	<h2>Utilidade Pública</h2>
+	Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
+	<hr>
+
+	<h1>Trabalhos e atividades desenvolvidos durante o ano</h1>
+	<br>
+	<h2>Oficinas temáticas por faixa etária</h2>
+	Registrada e regularizada no Conselho Municipal dos Direitos da Criança e do Adolescente, órgão responsável pelas políticas públicas de defesa de direitos e promoção do bem estar social da criança e do adolescente no Município.
+	<br><br>
+	<h2>Aulas e cursos profissionalizantes</h2>
+	Registrada e regularizada no Conselho Municipal de Assistência Social, orgão responsável por orientar, fiscalizar e formular a política pública de assistência social no município.
+	<br><br>
+	<h2>Eventos e datas comemorativas</h2>
+	Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
+	<br><br>
+	<h2>Ações assistencialistas e apoio às famílias</h2>
+	Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
+	<hr>
+
+	<h1>Novidades</h1>
 	{% for post in posts %}
 		<a href="{{ url_for('post', post_id=post['id']) }}">
 			<h2>{{ post['title'] }}</h2>

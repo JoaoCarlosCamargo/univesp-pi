@@ -1,0 +1,16 @@
+TODO
+
+#1 decobrir qual o código de cor html do azul e do amarelo
+
+#2 pegar artes (se houver) do logo e mais imagens
+
+#3 elaborar um rodapé único para todas as páginas
+
+#4 rever/melhorar formatação
+
+#5 dividir textos em páginas diferentes
+
+#6 criar textos faltantes: histórico, localozação, na mídia, etc
+
+#7 criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
+
