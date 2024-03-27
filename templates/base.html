@@ -25,9 +25,24 @@
             </li>
             </ul>
         </div>
+
+		{% for contato in contato %}
+			<a class="navbar-brand" href="https://api.whatsapp.com/send?phone={{ contato['whatsapp'] }}&text=Olá! Venho a partir do site.">
+			  <img src="{{ url_for('static', filename='img/whatsapp.png') }}" alt="Whatsapp" width="60" height="60" style="position: fixed; bottom: 10px; right: 10px; z-index: 100;">
+			</a>
+		{% endfor %}
+
     </nav>
     <div class="container">
         {% block content %} {% endblock %}
+
+		<hr>
+
+		<br><br><br>
+		{% for mensagem_bottom in mensagem_bottom %}
+			<center>{{ mensagem_bottom['texto'] }}</center>
+		{% endfor %}
+	<br><br><br>
     </div>
 
     <!-- Optional JavaScript -->

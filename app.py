@@ -22,8 +22,10 @@ app = Flask(__name__)
 def index():
   conn = get_db_connection()
   posts = conn.execute('SELECT * FROM posts').fetchall()
+  contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
+  mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
   conn.close()
-  return render_template('index.html', posts=posts)
+  return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom)
   #return render_template('index.html')
 
 @app.route('/<int:post_id>')

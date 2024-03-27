@@ -13,4 +13,3 @@ TODO
 #6 criar textos faltantes: histórico, localozação, na mídia, etc
 
 #7 criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
-
