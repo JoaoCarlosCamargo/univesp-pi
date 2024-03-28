@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<br><br><br>
+	<br><br>
 	<div id="topo">
 		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
 	</div>
@@ -9,6 +9,7 @@
 	<hr>
 
 	<div id="quemsomos">
+		<br><br><br>
 		<h1>Quem Somos</h1>
 		A Semear Americana é uma Organização da Sociedade Civil, inscrita sob o CNPJ 32.787.100/0001-04, fundada em 2016 que atende mais de 150 crianças e adolescentes em situação de vulnerabilidade social na comunidade do Zincão e arredores, localizada no bairro Parque da Liberdade, cidade de Americana. Estamos empenhados em proporcionar um ambiente enriquecedor de oportunidades que contribuam para o desenvolvimento integral desses jovens, promovendo transformações positivas em suas vidas e impactando na comunidade em que estão inseridos.
 		<br><br>
@@ -30,8 +31,47 @@
 	<br>
 
 	<div id="acomunidade">
+		<br><br><br>
 		<h1>Sobre a comunidade</h1>
 		A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+
+		<br><br>
+
+		<center>
+			<img id="imagem" src="" alt="Imagem docarrossel">
+			<button id="anterior">Anterior</button>
+			<button id="proxima">Próxima</button>
+
+			<script>
+				const urlProxima = '{{ url_for('proxima') }}';
+				const urlAnterior = '{{ url_for('anterior') }}';
+				const intervaloTroca = 5000; // Troca a imagem a cada 5 segundos
+
+				let imagemAtual = document.getElementById('imagem');
+
+				function trocarImagem(url) {
+					fetch(url)
+						.then(response => response.json())
+						.then(data => {
+							imagemAtual.src = '{{ url_for('static', filename='') }}' + data.imagem; // Removed extra comma and closing parenthesis
+						});
+				}
+
+				setInterval(() => {
+					trocarImagem(urlProxima);
+				}, intervaloTroca);
+
+				document.getElementById('anterior').addEventListener('click', () => {
+					trocarImagem(urlAnterior);
+				});
+
+				document.getElementById('proxima').addEventListener('click', () => {
+					trocarImagem(urlProxima);
+				});
+			</script>
+		</center>
+
+		<br>
 
 		<hr>
 	</div>
@@ -69,10 +109,12 @@
 	<br>
 
 	<div id="novidades">
+		<br><br><br>
 		<h1>Novidades</h1>
+		<br>
 		{% for post in posts %}
 			<a href="{{ url_for('post', post_id=post['id']) }}">
-				<h2>{{ post['title'] }}</h2>
+				<h3>{{ post['title'] }}</h3>
 			</a>
 			<span class="badge badge-primary">{{ post['created'] }}</span>
 			<hr>
@@ -82,6 +124,7 @@
 	<br>
 
 	<div id="contato">
+		<br><br><br>
 		<h1>Contato</h1>
 		<br>
 		<center>

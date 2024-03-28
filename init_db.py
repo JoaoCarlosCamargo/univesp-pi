@@ -1,28 +1,46 @@
 import sqlite3
 
-connection = sqlite3.connect('database.db')
+def connect():
+    return sqlite3.connect('database.db')
 
+def criar_tabelas():
+    conn = connect()
+    c = conn.cursor()
+   
+    with open('schema.sql') as f:
+        c.executescript(f.read())
+   
+    c.execute("""
+      INSERT OR IGNORE INTO usuarios (login, senha) VALUES (?, ?)
+    """, ('admin', 'admin'))
 
-with open('schema.sql') as f:
-    connection.executescript(f.read())
+    c.execute("""INSERT INTO contato (whatsapp, facebook, instagram, email, endereco) VALUES (?, ?, ?, ?, ?)
+    """, ('+5519996848921', 'https://www.facebook.com/semearamericana?mibextid=JRoKGi', 'https://www.instagram.com/semearamericana_?igsh=ZGV6ajRmcmt6Zm9u', 'semearamericana@gmail.com', 'R. Serra de Maracajú, 124 - Parque da Liberdade - Americana - SP, 13470-441'))
+   
+    c.execute("""INSERT INTO mensagem_bottom (texto) VALUES (?)
+    """, ('© 2024 Website desenvolvido por alunos da UNIVESP para o Projeto Integrador em Computação.',))
 
-cur = connection.cursor()
+    c.execute("""
+      INSERT INTO posts (title, content) VALUES (?, ?)
+    """, ('Publicação teste 1', 'Esta é uma publicação teste para exibição de postagens.'))
 
-cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
-            ('First Post', 'Content for the first post')
-            )
+    c.execute("""
+      INSERT INTO posts (title, content) VALUES (?, ?)
+    """, ('Publicação teste 2', 'Esta é uma publicação teste para exibição de postagens.'))
 
-cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
-            ('Second Post', 'Content for the second post')
-            )
+    c.execute("""
+      INSERT INTO posts (title, content) VALUES (?, ?)
+    """, ('Publicação teste 3', 'Esta é uma publicação teste para exibição de postagens.'))
 
-cur.execute("INSERT INTO contato (whatsapp, facebook, instagram, email, endereco) VALUES (?, ?, ?, ?, ?)",
-            ('+5519996848921', 'https://www.facebook.com/semearamericana?mibextid=JRoKGi', 'https://www.instagram.com/semearamericana_?igsh=ZGV6ajRmcmt6Zm9u', 'semearamericana@gmail.com', 'R. Serra de Maracajú, 124 - Parque da Liberdade - Americana - SP, 13470-441')
-            )
+    conn.commit()
+    conn.close()
 
-cur.execute("INSERT INTO mensagem_bottom (texto) VALUES (?)",
-    ('© 2024 Website desenvolvido por alunos da UNIVESP para o Projeto Integrador em Computação.',)
-)
-
-connection.commit()
-connection.close()
+def login(user, senha):
+    conn = connect()
+    c = conn.cursor()
+    c.execute("""
+        SELECT * FROM usuarios WHERE login = ? AND senha = ?
+    """, (user, senha))
+    usuario = c.fetchone()
+    conn.close()
+    return usuario

@@ -1,18 +1,16 @@
 TODO
 
-#1 decobrir qual o código de cor html do azul e do amarelo
+# decobrir qual o código de cor html do azul e do amarelo
 
-#2 pegar artes (se houver) do logo e mais imagens
+# pegar artes (se houver) do logo e mais imagens
 
-#3 elaborar um rodapé único para todas as páginas
+# pegar fotos do projeto
 
-#4 rever/melhorar formatação
+# QR Code para doações
 
-#5 dividir textos em páginas diferentes
+# rever/melhorar formatação
 
-#6 criar textos faltantes: histórico, localozação, na mídia, etc
+# criar textos faltantes: histórico, localozação, na mídia, etc
 
-#7 criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
-
-#8 QR Code para doações
+# criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
 
