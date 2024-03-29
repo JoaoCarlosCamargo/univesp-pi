@@ -10,7 +10,11 @@ TODO
 
 # rever/melhorar formatação
 
-# criar textos faltantes: histórico, localozação, na mídia, etc
+# revisar/criar textos faltantes: histórico, localozação, na mídia, etc
 
 # criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
+
+# compartilhamento de página por whatsapp, etc
+
+# busca na página
 

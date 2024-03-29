@@ -12,7 +12,6 @@ venv\scripts\activate
 
 pip install Flask
 
-py init_db.py
 py app.py
 
 Acessar pelo browser:
