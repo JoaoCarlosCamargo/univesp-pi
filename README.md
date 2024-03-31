@@ -1,12 +1,12 @@
-Referência:
+Referï¿½ncia:
 How To Make a Web Application Using Flask in Python 3
 https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3
 
-Para executar a aplicação:
+Para executar a aplicaï¿½ï¿½o:
 
 No CMD:
 
-virtualenv venv
+'virtualenv venv' ou no windows 'python -m virtualenv venv'
 
 venv\scripts\activate
 
