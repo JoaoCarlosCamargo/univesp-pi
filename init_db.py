@@ -11,8 +11,12 @@ def criar_tabelas():
         c.executescript(f.read())
    
     c.execute("""
-      INSERT OR IGNORE INTO usuarios (login, senha) VALUES (?, ?)
-    """, ('admin', 'admin'))
+      INSERT OR IGNORE INTO usuarios (nome, senha) VALUES (?, ?)
+    """, ('admin', 'senha_admin'))
+   
+    c.execute("""
+      INSERT OR IGNORE INTO usuarios (nome, senha) VALUES (?, ?)
+    """, ('usuario1', 'senha_usuario1'))
 
     c.execute("""INSERT INTO contato (whatsapp, facebook, instagram, email, endereco) VALUES (?, ?, ?, ?, ?)
     """, ('+5519996848921', 'https://www.facebook.com/semearamericana?mibextid=JRoKGi', 'https://www.instagram.com/semearamericana_?igsh=ZGV6ajRmcmt6Zm9u', 'semearamericana@gmail.com', 'R. Serra de Maracajú, 124 - Parque da Liberdade - Americana - SP, 13470-441'))
@@ -34,13 +38,3 @@ def criar_tabelas():
 
     conn.commit()
     conn.close()
-
-def login(user, senha):
-    conn = connect()
-    c = conn.cursor()
-    c.execute("""
-        SELECT * FROM usuarios WHERE login = ? AND senha = ?
-    """, (user, senha))
-    usuario = c.fetchone()
-    conn.close()
-    return usuario
