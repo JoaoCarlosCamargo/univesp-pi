@@ -26,8 +26,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class Usuario(UserMixin):
-    def __init__(self, id, nome):
+    def __init__(self, id, created, nome):
         self.id = id
+        self.created = created
         self.nome = nome
 
 @login_manager.user_loader
@@ -37,7 +38,7 @@ def load_user(user_id):
                         (user_id,)).fetchone()
     conn.close()
     if usuario:
-        return Usuario(usuario[0], usuario[1])
+        return Usuario(usuario[0], usuario[1], usuario[2])
     return None
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -51,7 +52,7 @@ def login():
         usuario = cursor.fetchone()
         con.close()
         if usuario:
-            login_user(Usuario(usuario[0], usuario[1]))
+            login_user(Usuario(usuario[0], usuario[1], usuario[2]))
             return redirect(url_for('admin'))
         flash('Login inválido!')
     return render_template('login.html')
@@ -59,7 +60,12 @@ def login():
 @app.route('/admin')
 @login_required
 def admin():
-    return render_template('admin.html', usuario=current_user)
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts').fetchall()
+    contato = conn.execute('SELECT * FROM contato').fetchall()
+    usuarios = conn.execute('SELECT * FROM usuarios').fetchall()
+    conn.close()
+    return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios)
 
 @app.route('/logout')
 @login_required
