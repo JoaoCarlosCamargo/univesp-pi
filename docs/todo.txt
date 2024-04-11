@@ -10,11 +10,10 @@ TODO
 
 # rever/melhorar formatação
 
-# revisar/criar textos faltantes: histórico, localozação, na mídia, etc
+# revisar/criar textos
 
-# criar página para acesso interno e funcionalidades de acesso interno, como postagem de notícias, por exemplo
-
-# compartilhamento de página por whatsapp, etc
+# cadastro com upload de arquivos
 
 # busca na página
 
+# scroll lateral da barra de menu

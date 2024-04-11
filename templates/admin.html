@@ -10,12 +10,27 @@
 	<br><br>
 	<h1>Administração</h1>
 
-	<br><br>
+	<br>
+
+{% with messages = get_flashed_messages() %}  {% if messages %}
+    <ul class="flash-messages">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+	<br>
 
 	{% if usuario %}
-		<p>Olá {{ usuario }}!</p>
+		Olá {{ usuario }}!
 	{% endif %}
-    <a href="/logout">Sair</a>
+    <br><a href="/logout">Sair</a>
+
+	<br>
+	<hr>
+	<br>
 
     <h2>Configuração de Contato</h2>
     {% if not contato %}
@@ -43,7 +58,7 @@
                         <td>{{ contato.email }}</td>
                         <td>{{ contato.endereco }}</td>
                         <td>
-                            <a href="/editar/{{ contato.id }}">Editar</a>
+                            <a href="/editar/{{ contato.id }}" class="btn btn-sm btn-warning">Editar</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,9 +66,14 @@
         </table>
     {% endif %}
 
-	<br><br>
+	<br>
+	<hr>
+	<br>
 
+	<div id="usuarios">
     <h2>Usuários</h2>
+    <a href="{{ url_for('create_usuario') }}">Novo Usuário</a>
+    <br>
     {% if not usuarios %}
         <p>Nenhuma usuário cadastrado.</p>
     {% else %}
@@ -62,7 +82,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Senha</th>
                     <th>Data de criação</th>
                     <th>Ações</th>
                 </tr>
@@ -72,21 +91,28 @@
                     <tr>
                         <td>{{ usuario.id }}</td>
                         <td>{{ usuario.nome }}</td>
-                        <td>{{ usuario.senha }}</td>
                         <td>{{ usuario.created }}</td>
                         <td>
-                            <a href="/editar/{{ usuario.id }}">Editar</a>
-                            <a href="/remover/{{ usuario.id }}">Remover</a>
+                        	{% if usuario.nome != 'admin' %}
+                            <a href="{{ url_for('edit_usuario', id=usuario.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="{{ url_for('excluir_usuario', id=usuario[0]) }}" class="btn btn-sm btn-danger">Excluir</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
+    </div>
 
-	<br><br>
+	<br>
+	<hr>
+	<br>
 
+	<div id="posts">
 	<h2>Postagens</h2>
+    <a href="{{ url_for('create_post') }}">Nova Postagem</a>
+    <br>
     {% if not posts %}
         <p>Nenhuma postagem cadastrada.</p>
     {% else %}
@@ -108,15 +134,16 @@
                         <td>{{ post.content }}</td>
                         <td>{{ post.created }}</td>
                         <td>
-                            <a href="/editar/{{ post.id }}">Editar</a>
-                            <a href="/remover/{{ post.id }}">Remover</a>
+                            <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="{{ url_for('excluir_post', id=post[0]) }}" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
+    </div>
 
-	<br><br>
+	<br>
 
 {% endblock %}

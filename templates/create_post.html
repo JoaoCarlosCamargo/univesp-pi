@@ -1,0 +1,26 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+	<br><br><br>
+	<div id="topo">
+		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+	</div>
+
+	<hr>
+	<br><br>
+    <h1>Criar Postagem</h1>
+    {% if flash %}
+        <div class="flash">{{ flash }}</div>
+    {% endif %}
+    <form action="{{ url_for('create_post') }}" method="post">
+        <label for="title">Título:</label>
+        <input type="text" name="title" id="title">
+        <br>
+        <label for="content">Conteúdo:</label>
+        <br>
+        <textarea name="content" id="content"></textarea>
+        <br>
+        <input type="submit" value="Confirmar">
+    </form>
+
+{% endblock %}

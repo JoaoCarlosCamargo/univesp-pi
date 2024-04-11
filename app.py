@@ -86,7 +86,6 @@ def index():
   global indice_atual
   imagem_atual = imagens[indice_atual]
   return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual)
-  #return render_template('index.html')
 
 @app.route('/<int:post_id>')
 def post(post_id):
@@ -108,6 +107,104 @@ def anterior():
     global indice_atual
     indice_atual = (indice_atual - 1) % len(imagens)
     return jsonify({'imagem': imagens[indice_atual]})
+
+@app.route("/admin/excluir_post/<int:id>")
+def excluir_post(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM posts WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    flash('Postagem excluída!')
+    return redirect(url_for("admin"))
+
+# Route for creating a new post
+@app.route('/admin/create_post', methods=['GET', 'POST'])
+@login_required
+def create_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
+        conn.commit()
+        conn.close()
+        flash('Postagem criada com sucesso!')
+        return redirect(url_for('admin'))
+    return render_template('create_post.html')
+
+# Route for editing a post
+@app.route('/admin/edit_post/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM posts WHERE id = ?', (id,))
+    post = cursor.fetchone()
+    conn.close()
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('UPDATE posts SET title = ?, content = ? WHERE id = ?', (title, content, id))
+        conn.commit()
+        conn.close()
+        flash('Postagem alterada com sucesso!')
+        return redirect(url_for('admin'))
+
+    return render_template('edit_post.html', post=post)
+
+@app.route("/admin/excluir_usuario/<int:id>")
+def excluir_usuario(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM usuarios WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    flash('Usuário excluído!')
+    return redirect(url_for("admin"))
+
+# Route for creating a new usuario
+@app.route('/admin/create_usuario', methods=['GET', 'POST'])
+@login_required
+def create_usuario():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        senha = request.form['senha']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO usuarios (nome, senha) VALUES (?, ?)', (nome, senha))
+        conn.commit()
+        conn.close()
+        flash('Usuário criado com sucesso!')
+        return redirect(url_for('admin'))
+    return render_template('create_usuario.html')
+
+# Route for editing a usuario
+@app.route('/admin/edit_usuario/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_usuario(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM usuarios WHERE id = ?', (id,))
+    usuario = cursor.fetchone()
+    conn.close()
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        senha = request.form['senha']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?', (nome, senha, id))
+        conn.commit()
+        conn.close()
+        flash('Usuário alterado com sucesso!')
+        return redirect(url_for('admin'))
+
+    return render_template('edit_usuario.html', usuario=usuario)
 
 if __name__ == "__main__":
   criar_tabelas()
