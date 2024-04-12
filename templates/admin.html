@@ -145,5 +145,41 @@
     </div>
 
 	<br>
+	<hr>
+	<br>
+
+	<div id="reports">
+	<h2>Relatórios</h2>
+    <a href="{{ url_for('create_report') }}">Novo Relatório</a>
+    <br>
+    {% if not reports %}
+        <p>Nenhum relatório cadastrado.</p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Arquivo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.id }}</td>
+                        <td>{{ report.description }}</td>
+                        <td><a href="{{ url_for('download_report', id=report.id) }}">Download</a></td>
+                        <td>
+                            <a href="{{ url_for('excluir_report', id=report.id) }}" class="btn btn-sm btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
+
+	<br>
 
 {% endblock %}

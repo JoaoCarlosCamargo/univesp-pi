@@ -1,8 +1,9 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, send_file
 from werkzeug.exceptions import abort
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from sqlite3 import connect
+from io import BytesIO
 from init_db import criar_tabelas
 
 def get_db_connection():
@@ -64,8 +65,9 @@ def admin():
     posts = conn.execute('SELECT * FROM posts').fetchall()
     contato = conn.execute('SELECT * FROM contato').fetchall()
     usuarios = conn.execute('SELECT * FROM usuarios').fetchall()
+    reports = conn.execute('SELECT * FROM reports').fetchall()
     conn.close()
-    return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios)
+    return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios, reports=reports)
 
 @app.route('/logout')
 @login_required
@@ -205,6 +207,63 @@ def edit_usuario(id):
         return redirect(url_for('admin'))
 
     return render_template('edit_usuario.html', usuario=usuario)
+
+# Rota para upload de novo relatório
+@app.route('/reports/new', methods=['GET', 'POST'])
+@login_required
+def create_report():
+    if request.method == 'POST':
+        description = request.form['description']
+        if 'report_file' not in request.files:
+            flash('Selecione um arquivo PDF para upload')
+            return redirect(url_for('create_report'))
+
+        report_file = request.files['report_file']
+        if report_file.filename.endswith('.pdf'):
+            report_data = report_file.read()
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO reports (description, report_file) VALUES (?, ?)', (description, report_data))
+            conn.commit()
+            conn.close()
+            flash('Relatório enviado com sucesso!')
+            return redirect(url_for('admin'))
+        else:
+            flash('Apenas arquivos PDF são permitidos')
+            return redirect(url_for('create_report'))
+
+    return render_template('create_report.html')
+
+@app.route('/reports/<int:id>/download')
+def download_report(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reports WHERE id = ?', (id,))
+    report = cursor.fetchone()
+    conn.commit()
+    conn.close()
+
+    if report is None:
+        abort(404)
+
+    # Retrieve the PDF data from the database
+    pdf_data = report[2]
+
+    # Specify the download name (optional but recommended)
+    download_name = f"{report[1]}.pdf"
+
+    response = send_file(BytesIO(pdf_data), as_attachment=True, mimetype='application/pdf', download_name=download_name)
+    return response
+
+@app.route("/admin/excluir_report/<int:id>")
+def excluir_report(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM reports WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    flash('Relatório excluído!')
+    return redirect(url_for("admin"))
 
 if __name__ == "__main__":
   criar_tabelas()

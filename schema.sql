@@ -34,3 +34,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS reports (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  description TEXT NOT NULL,
+  report_file BLOB NOT NULL
+);
+

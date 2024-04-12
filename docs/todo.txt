@@ -17,3 +17,7 @@ TODO
 # busca na página
 
 # scroll lateral da barra de menu
+
+# Melhorar processo de upload de arquivo. Gravar nome do PDF ao carregar. Criar edição.
+
+# Se usuário logado, não pedir pra logar de novo.

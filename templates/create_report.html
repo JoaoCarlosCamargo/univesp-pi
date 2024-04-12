@@ -1,0 +1,25 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+	<br><br><br>
+	<div id="topo">
+		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+	</div>
+
+	<hr>
+	<br><br>
+    <h1>Novo Relatório</h1>
+    {% if flash %}
+        <div class="flash">{{ flash }}</div>
+    {% endif %}
+    <form action="{{ url_for('create_report') }}" method="post" enctype="multipart/form-data">
+        <label for="description">Descrição:</label>
+        <input type="text" name="description" id="description" required>
+        <br>
+        <label for="report_file">Selecionar arquivo PDF:</label>
+        <input type="file" name="report_file" id="report_file" accept=".pdf" required>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+{% endblock %}
