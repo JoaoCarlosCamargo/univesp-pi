@@ -169,8 +169,10 @@
                     <tr>
                         <td>{{ report.id }}</td>
                         <td>{{ report.description }}</td>
-                        <td><a href="{{ url_for('download_report', id=report.id) }}">Download</a></td>
                         <td>
+                        <a href="{{ url_for('download_report', id=report.id) }}">{{ report.report_name }}</a></td>
+                        <td>
+                            <a href="{{ url_for('edit_report', id=report.id) }}" class="btn btn-sm btn-warning">Editar</a>
                             <a href="{{ url_for('excluir_report', id=report.id) }}" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
                     </tr>
