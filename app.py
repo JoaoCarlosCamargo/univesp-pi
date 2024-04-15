@@ -5,6 +5,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from sqlite3 import connect
 from io import BytesIO
 from init_db import criar_tabelas
+import os
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -75,19 +76,26 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-imagens = ['img/fotos/imagem1.png', 'img/fotos/imagem2.png', 'img/fotos/imagem3.png']
+# Imagens usadas no carrossel
+imagens_dir = "static/img/fotos"
+imagens = []
+# Walk through the directory and append image paths to the list
+for root, _, filenames in os.walk(imagens_dir):
+    for filename in filenames:
+        if filename.endswith('.png') or filename.endswith('.jpg') or filename.endswith('.jpeg'):  # Check for image file extensions
+            imagens.append(os.path.join(root, filename).replace('static/', ''))
 indice_atual = 0
 
 @app.route('/')
 def index():
-  conn = get_db_connection()
-  posts = conn.execute('SELECT * FROM posts').fetchall()
-  contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
-  mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
-  conn.close()
-  global indice_atual
-  imagem_atual = imagens[indice_atual]
-  return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual)
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts').fetchall()
+    contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
+    mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
+    conn.close()
+    global indice_atual
+    imagem_atual = imagens[indice_atual]
+    return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual)
 
 @app.route('/<int:post_id>')
 def post(post_id):
@@ -219,14 +227,18 @@ def create_report():
             return redirect(url_for('create_report'))
 
         report_file = request.files['report_file']
-        if report_file.filename.endswith('.pdf'):
+        
+        # Extract filename from report_file object
+        filename = report_file.filename
+        
+        if filename.endswith('.pdf'):
             report_data = report_file.read()
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO reports (description, report_file) VALUES (?, ?)', (description, report_data))
+            cursor.execute('INSERT INTO reports (description, report_name, report_file) VALUES (?, ?, ?)', (description, filename, report_data))
             conn.commit()
             conn.close()
-            flash('Relatório enviado com sucesso!')
+            flash('Relatório cadastrado com sucesso!')
             return redirect(url_for('admin'))
         else:
             flash('Apenas arquivos PDF são permitidos')
@@ -250,7 +262,7 @@ def download_report(id):
     pdf_data = report[2]
 
     # Specify the download name (optional but recommended)
-    download_name = f"{report[1]}.pdf"
+    download_name = report[3]
 
     response = send_file(BytesIO(pdf_data), as_attachment=True, mimetype='application/pdf', download_name=download_name)
     return response
@@ -264,6 +276,39 @@ def excluir_report(id):
     conn.close()
     flash('Relatório excluído!')
     return redirect(url_for("admin"))
+
+# Route for editing a report
+@app.route('/admin/edit_report/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_report(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM reports WHERE id = ?', (id,))
+    report = cursor.fetchone()
+    conn.close()
+
+    if request.method == 'POST':
+        description = request.form['description']
+        report_file = request.files['report_file']
+        
+        # Extract filename from report_file object
+        filename = report_file.filename
+        
+        if filename.endswith('.pdf'):
+            report_data = report_file.read()
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute('update reports set description = ?, report_name = ?, report_file = ? where id = ?', (description, filename, report_data, id))
+            conn.commit()
+            conn.close()
+            flash('Relatório alterado com sucesso!')
+            return redirect(url_for('admin'))
+        else:
+            flash('Apenas arquivos PDF são permitidos')
+            return redirect(url_for('edit_report'))
+
+    return render_template('edit_report.html', report=report)
+
 
 if __name__ == "__main__":
   criar_tabelas()
