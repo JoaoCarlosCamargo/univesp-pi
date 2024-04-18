@@ -13,3 +13,7 @@ TODO
 # revisar/criar textos
 
 # Se usuário logado, não pedir pra logar de novo.
+
+# Finalizar transformação do conteúdo das páginas em cadastro. Quem Somos, Visão, Missão, ...
+
+# Criar página de transparência com os reports

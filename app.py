@@ -67,8 +67,9 @@ def admin():
     contato = conn.execute('SELECT * FROM contato').fetchall()
     usuarios = conn.execute('SELECT * FROM usuarios').fetchall()
     reports = conn.execute('SELECT * FROM reports').fetchall()
+    textos = conn.execute('SELECT * FROM textos').fetchall()
     conn.close()
-    return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios, reports=reports)
+    return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios, reports=reports, textos=textos)
 
 @app.route('/logout')
 @login_required
@@ -92,10 +93,11 @@ def index():
     posts = conn.execute('SELECT * FROM posts').fetchall()
     contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
     mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
+    textos = conn.execute('SELECT * FROM textos').fetchall()
     conn.close()
     global indice_atual
     imagem_atual = imagens[indice_atual]
-    return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual)
+    return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual, textos=textos)
 
 @app.route('/<int:post_id>')
 def post(post_id):
@@ -309,6 +311,67 @@ def edit_report(id):
 
     return render_template('edit_report.html', report=report)
 
+# Route for editing a contato
+@app.route('/admin/edit_contato/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_contato(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM contato WHERE id = ?', (id,))
+    contato = cursor.fetchone()
+    conn.close()
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('UPDATE contato SET title = ?, content = ? WHERE id = ?', (title, content, id))
+        conn.commit()
+        conn.close()
+        flash('Contatos alterados com sucesso!')
+        return redirect(url_for('admin'))
+
+    return render_template('edit_contato.html', contato=contato)
+
+# Route for editing a texto
+@app.route('/admin/edit_textos/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_textos(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM textos WHERE id = ?', (id,))
+    textos = cursor.fetchone()
+    conn.close()
+
+    if request.method == 'POST':
+        quem_somos = request.form['quem_somos']
+        visao_semear = request.form['visao_semear']
+        missao_semear = request.form['missao_semear']
+        sobre_a_comunidade = request.form['sobre_a_comunidade']
+        nossa_historia = request.form['nossa_historia']
+        atividades = request.form['atividades']
+        parceiros = request.form['parceiros']
+        transparencia = request.form['transparencia']
+        novidades = request.form['novidades']
+        semeie_voluntariado = request.form['semeie_voluntariado']
+        semeie_colaboradores = request.form['semeie_colaboradores']
+        semeie_refeicoes = request.form['semeie_refeicoes']
+        semeie_veiculo = request.form['semeie_veiculo']
+        semeie_sede_propria = request.form['semeie_sede_propria']
+        semeie_colaboracoes_mensais = request.form['semeie_colaboracoes_mensais']
+        semeie_colaboracoes_eventuais = request.form['semeie_colaboracoes_eventuais']
+        semeie_doacao_materiais = request.form['semeie_doacao_materiais']
+        semeie_empresa_que_semeia = request.form['semeie_empresa_que_semeia']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('UPDATE textos SET quem_somos = ?, visao_semear = ?, missao_semear = ?, sobre_a_comunidade = ?, nossa_historia = ?, atividades = ?, parceiros = ?, transparencia = ?, novidades = ?, semeie_voluntariado = ?, semeie_colaboradores = ?, semeie_refeicoes = ?, semeie_veiculo = ?, semeie_sede_propria = ?, semeie_colaboracoes_mensais = ?, semeie_colaboracoes_eventuais = ?, semeie_doacao_materiais = ?, semeie_empresa_que_semeia = ? WHERE id = ?', (quem_somos, visao_semear, missao_semear, sobre_a_comunidade, nossa_historia, atividades, parceiros, transparencia, novidades, semeie_voluntariado, semeie_colaboradores, semeie_refeicoes, semeie_veiculo, semeie_sede_propria, semeie_colaboracoes_mensais, semeie_colaboracoes_eventuais, semeie_doacao_materiais, semeie_empresa_que_semeia, id))
+        conn.commit()
+        conn.close()
+        flash('Textos alterados com sucesso!')
+        return redirect(url_for('admin'))
+
+    return render_template('edit_textos.html', textos=textos)
 
 if __name__ == "__main__":
   criar_tabelas()

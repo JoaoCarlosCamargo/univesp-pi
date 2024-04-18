@@ -14,6 +14,8 @@ pip install Flask
 
 pip install Flask-Login
 
+pip install django-ckeditor
+
 py app.py
 
 Acessar pelo browser:
