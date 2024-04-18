@@ -11,15 +11,22 @@
 	<div id="quemsomos">
 		<br><br><br>
 		<h1>Quem Somos</h1>
-		A Semear Americana é uma Organização da Sociedade Civil, inscrita sob o CNPJ 32.787.100/0001-04, fundada em 2016 que atende mais de 150 crianças e adolescentes em situação de vulnerabilidade social na comunidade do Zincão e arredores, localizada no bairro Parque da Liberdade, cidade de Americana. Estamos empenhados em proporcionar um ambiente enriquecedor de oportunidades que contribuam para o desenvolvimento integral desses jovens, promovendo transformações positivas em suas vidas e impactando na comunidade em que estão inseridos.
-		<br><br>
-		Em 2016 nasceu a Semear, um sonho realizado de nossa presidente e fundadora Bianca Vanessa Cordasso Ferraz, uma voluntária que dedica sua vida à este trabalho com muito amor e determinação!
+
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['quem_somos'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<hr>
 
 		<br>
 		<h2>Visão Semear</h2>
-		Buscamos ser referência na transformação de vidas, reconhecendo que a mudança em crianças e adolescentes reverbera em suas famílias. Apresentamos diversas possibilidades e recursos, visando criar uma comunidade em que todos possuam acesso aos meios necessários para construir uma realidade distinta da experienciada, promovendo assim autonomia e superação de adversidades iniciais. Nosso compromisso reside em impactar positivamente não apenas indivíduos, mas também as estruturas familiares e a comunidade como um todo.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['visao_semear'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<hr>
 
@@ -169,6 +176,7 @@
 		<br><br><br>
 		<h1>Novidades</h1>
 		<br>
+		{% autoescape off %}
 		{% for post in posts %}
 			<a href="{{ url_for('post', post_id=post['id']) }}">
 				<h3>{{ post['title'] }}</h3>
@@ -176,6 +184,7 @@
 			<span class="badge badge-primary">{{ post['created'] }}</span>
 			<hr>
 		{% endfor %}
+		{% endautoescape %}
 	</div>
 
 	<br>

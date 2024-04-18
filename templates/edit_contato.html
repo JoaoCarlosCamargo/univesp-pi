@@ -1,0 +1,38 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+	<br><br><br>
+	<div id="topo">
+		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+	</div>
+
+	<hr>
+	<br><br>
+    <h1>Editar Informações de Contato</h1>
+    {% if flash %}
+        <div class="flash">{{ flash }}</div>
+    {% endif %}
+    <form action="{{ url_for('edit_contato', id=contato.id) }}" method="post">
+        <label for="whatsapp">Whatsapp:</label>
+        <textarea name="whatsapp" id="whatsapp">{{ contato.whatsapp }}</textarea>
+        <br>
+        <label for="facebook">Facebook:</label>
+        <br>
+        <textarea name="facebook" id="facebook">{{ contato.facebook }}</textarea>
+        <br>
+        <label for="instagram">Instagram:</label>
+        <br>
+        <textarea name="instagram" id="instagram">{{ contato.instagram }}</textarea>
+        <br>
+        <label for="email">E-mail:</label>
+        <br>
+        <textarea name="email" id="email">{{ contato.email }}</textarea>
+        <br>
+        <label for="endereco">Endereço:</label>
+        <br>
+        <textarea name="endereco" id="endereco">{{ contato.endereco }}</textarea>
+        <br>
+        <input type="submit" value="Confirmar">
+    </form>
+
+{% endblock %}

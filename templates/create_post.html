@@ -13,12 +13,15 @@
         <div class="flash">{{ flash }}</div>
     {% endif %}
     <form action="{{ url_for('create_post') }}" method="post">
-        <label for="title">Título:</label>
-        <input type="text" name="title" id="title">
+        <hr>
+        <label for="title"><b>Título:</b></label>
+        <textarea name="title" id="title"></textarea>
+		<script>CKEDITOR.replace('title');</script>
         <br>
-        <label for="content">Conteúdo:</label>
-        <br>
+        <hr>
+        <label for="content"><b>Colaboradores:</b></label>
         <textarea name="content" id="content"></textarea>
+		<script>CKEDITOR.replace('content');</script>
         <br>
         <input type="submit" value="Confirmar">
     </form>
