@@ -32,7 +32,11 @@
 
 		<br>
 		<h2>Missão Semear</h2>
-		Almejamos promover o desenvolvimento integral de crianças e adolescentes em situação de vulnerabilidade social. Para isso, criamos um ambiente que abrange o crescimento físico, cognitivo, emocional e social, oferecendo oportunidades educacionais, esportivas, culturais e sociais, atendendo além das necessidades básicas e contribuindo para a formação desses indivíduos como seres humanos. Dessa forma, buscamos não apenas transformar vidas individualmente, mas também contribuir para a construção de uma sociedade resiliente, justa e promissora.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['missao_semear'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<hr>
 	</div>
@@ -42,12 +46,16 @@
 	<div id="acomunidade">
 		<br><br><br>
 		<h1>Sobre a Comunidade</h1>
-		A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['sobre_a_comunidade'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<br><br>
 
 		<center>
-			<img id="imagem" src="" alt="Imagem docarrossel">
+			<img id="imagem" src="" alt="Imagem do carrossel">
 			<br><br>
 			<button id="anterior">Anterior</button>
 			<button id="proxima">Próxima</button>
@@ -91,7 +99,11 @@
 	<div id="historia">
 		<br><br><br>
 		<h1>Nossa História</h1>
-		A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['nossa_historia'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<br>
 
@@ -103,18 +115,13 @@
 	<div id="atividades">
 		<br><br><br>
 		<h1>Trabalhos e atividades desenvolvidos durante o ano</h1>
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['atividades'] }}
+		{% endfor %}
+		{% endautoescape %}
+
 		<br>
-		<h2>Oficinas temáticas por faixa etária</h2>
-		Registrada e regularizada no Conselho Municipal dos Direitos da Criança e do Adolescente, órgão responsável pelas políticas públicas de defesa de direitos e promoção do bem estar social da criança e do adolescente no Município.
-		<br><br>
-		<h2>Aulas e cursos profissionalizantes</h2>
-		Registrada e regularizada no Conselho Municipal de Assistência Social, orgão responsável por orientar, fiscalizar e formular a política pública de assistência social no município.
-		<br><br>
-		<h2>Eventos e datas comemorativas</h2>
-		Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
-		<br><br>
-		<h2>Ações assistencialistas e apoio às famílias</h2>
-		Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
 		<hr>
 		<br>
 
@@ -125,7 +132,11 @@
 	<div id="parceiros">
 		<br><br><br>
 		<h1>Parceiros</h1>
-		A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['parceiros'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 		<br><br><br>
 
@@ -151,21 +162,17 @@
 	<div id="transparencia">
 		<br><br><br>
 		<h1>Transparência</h1>
-		A comunidade do Zincão, erguida em uma área de preservação ambiental, abriga mais de 200 submoradias em condições precárias, desprovidas de saneamento básico e sujeitas ao risco iminente de deslizamento ou desocupação. Nesse cenário, a presença diária e constante do tráfico de drogas expõe impiedosamente crianças e adolescentes a tais circunstâncias. Diante das experiências vividas, a Semear Americana dedica-se a impulsionar as crianças e adolescentes, oferecendo-lhes uma visão de futuro promissor. A organização compromete-se em acolher, ensinar e proteger esses jovens, garantindo que seus direitos sejam preservados e proporcionando um ambiente que estimule o desenvolvimento positivo e a construção de um futuro mais promissor.
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['transparencia'] }}
+		{% endfor %}
+		{% endautoescape %}
 
-		<br><br>
-
-		<h2>Cadastros e certificações</h2>
-		Devidamente regularizados, atendemos todos os requisitos legais para nosso funcionamento. Com inscrições em conselhos, utilidade pública e reconhecimento pela rede municipal a Organização demonstra um compromisso sério e transparente com nossas operações, fundamental para o sucesso e impacto positivo das atividades realizadas.
-		<br><br>
-		<h3>Inscrita no CMDCA</h3>
-		Registrada e regularizada no Conselho Municipal dos Direitos da Criança e do Adolescente, órgão responsável pelas políticas públicas de defesa de direitos e promoção do bem estar social da criança e do adolescente no Município.
-		<br><br>
-		<h3>Inscrita no CMAS</h3>
-		Registrada e regularizada no Conselho Municipal de Assistência Social, orgão responsável por orientar, fiscalizar e formular a política pública de assistência social no município.
-		<br><br>
-		<h3>Utilidade Pública</h3>
-		Reconhecimento da Semear como entidade civil que presta serviços, de acordo com o seu objetivo social, de interesse para toda a coletividade.
+		<br>
+		{% if reports %}
+		<h3>Documentos</h3>
+		<a href="{{ url_for('reports') }}">Acesse nossos documentos.</a>
+		{% endif %}
 
 		<hr>
 	</div>
@@ -175,9 +182,15 @@
 	<div id="novidades">
 		<br><br><br>
 		<h1>Novidades</h1>
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['novidades'] }}
+		{% endfor %}
+		{% endautoescape %}
+
 		<br>
 		{% autoescape off %}
-		{% for post in posts %}
+		{% for post in (posts|sort(attribute='created', reverse=True))[:3] %}
 			<a href="{{ url_for('post', post_id=post['id']) }}">
 				<h3>{{ post['title'] }}</h3>
 			</a>
@@ -185,6 +198,10 @@
 			<hr>
 		{% endfor %}
 		{% endautoescape %}
+
+		<br>
+		<a href="{{ url_for('posts') }}">Acesse as postagens anteriores.</a>
+
 	</div>
 
 	<br>

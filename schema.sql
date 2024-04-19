@@ -50,13 +50,5 @@ CREATE TABLE IF NOT EXISTS textos (
   parceiros TEXT NOT NULL,
   transparencia TEXT NOT NULL,
   novidades TEXT NOT NULL,
-  semeie_voluntariado TEXT NOT NULL,
-  semeie_colaboradores TEXT NOT NULL,
-  semeie_refeicoes TEXT NOT NULL,
-  semeie_veiculo TEXT NOT NULL,
-  semeie_sede_propria TEXT NOT NULL,
-  semeie_colaboracoes_mensais TEXT NOT NULL,
-  semeie_colaboracoes_eventuais TEXT NOT NULL,
-  semeie_doacao_materiais TEXT NOT NULL,
-  semeie_empresa_que_semeia TEXT NOT NULL
+  semeie TEXT NOT NULL
 );

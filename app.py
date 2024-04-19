@@ -43,6 +43,13 @@ def load_user(user_id):
         return Usuario(usuario[0], usuario[1], usuario[2])
     return None
 
+@app.route("/login_pre")
+def login_pre():
+    if current_user.is_authenticated:
+        return redirect(url_for("admin"))
+    else:
+        return redirect(url_for("login"))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -94,10 +101,11 @@ def index():
     contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
     mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
     textos = conn.execute('SELECT * FROM textos').fetchall()
+    reports = conn.execute('SELECT * FROM reports').fetchall()
     conn.close()
     global indice_atual
     imagem_atual = imagens[indice_atual]
-    return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual, textos=textos)
+    return render_template('index.html', posts=posts, contato=contato, mensagem_bottom=mensagem_bottom, imagem=imagem_atual, textos=textos, reports=reports)
 
 @app.route('/<int:post_id>')
 def post(post_id):
@@ -354,24 +362,34 @@ def edit_textos(id):
         parceiros = request.form['parceiros']
         transparencia = request.form['transparencia']
         novidades = request.form['novidades']
-        semeie_voluntariado = request.form['semeie_voluntariado']
-        semeie_colaboradores = request.form['semeie_colaboradores']
-        semeie_refeicoes = request.form['semeie_refeicoes']
-        semeie_veiculo = request.form['semeie_veiculo']
-        semeie_sede_propria = request.form['semeie_sede_propria']
-        semeie_colaboracoes_mensais = request.form['semeie_colaboracoes_mensais']
-        semeie_colaboracoes_eventuais = request.form['semeie_colaboracoes_eventuais']
-        semeie_doacao_materiais = request.form['semeie_doacao_materiais']
-        semeie_empresa_que_semeia = request.form['semeie_empresa_que_semeia']
+        semeie = request.form['semeie']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('UPDATE textos SET quem_somos = ?, visao_semear = ?, missao_semear = ?, sobre_a_comunidade = ?, nossa_historia = ?, atividades = ?, parceiros = ?, transparencia = ?, novidades = ?, semeie_voluntariado = ?, semeie_colaboradores = ?, semeie_refeicoes = ?, semeie_veiculo = ?, semeie_sede_propria = ?, semeie_colaboracoes_mensais = ?, semeie_colaboracoes_eventuais = ?, semeie_doacao_materiais = ?, semeie_empresa_que_semeia = ? WHERE id = ?', (quem_somos, visao_semear, missao_semear, sobre_a_comunidade, nossa_historia, atividades, parceiros, transparencia, novidades, semeie_voluntariado, semeie_colaboradores, semeie_refeicoes, semeie_veiculo, semeie_sede_propria, semeie_colaboracoes_mensais, semeie_colaboracoes_eventuais, semeie_doacao_materiais, semeie_empresa_que_semeia, id))
+        cursor.execute('UPDATE textos SET quem_somos = ?, visao_semear = ?, missao_semear = ?, sobre_a_comunidade = ?, nossa_historia = ?, atividades = ?, parceiros = ?, transparencia = ?, novidades = ?, semeie = ? WHERE id = ?', (quem_somos, visao_semear, missao_semear, sobre_a_comunidade, nossa_historia, atividades, parceiros, transparencia, novidades, semeie, id))
         conn.commit()
         conn.close()
         flash('Textos alterados com sucesso!')
         return redirect(url_for('admin'))
 
     return render_template('edit_textos.html', textos=textos)
+
+@app.route('/reports')
+def reports():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    reports = conn.execute('SELECT * FROM reports').fetchall()
+    conn.close()
+
+    return render_template('reports.html', reports=reports)
+
+@app.route('/posts')
+def posts():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    posts = conn.execute('SELECT * FROM posts').fetchall()
+    conn.close()
+
+    return render_template('posts.html', posts=posts)
 
 if __name__ == "__main__":
   criar_tabelas()
