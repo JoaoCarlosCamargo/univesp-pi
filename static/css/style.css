@@ -56,3 +56,24 @@ table th {
   background-color: #153c8e;
   color: white;
 }
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  flex: 1; /* Distribute available space equally */
+  margin-right: 10px; /* Add space between items */
+}
+
+@media (max-width: 768px) {
+  nav ul { /* Target the list of navigation items */
+    flex: 1; /* Make the list flexible */
+    margin-left: 10; /* Remove default left margin */
+  }
+
+  nav ul li:first-child { /* Target the first list item (hamburger menu) */
+    flex-grow: 0; /* Prevent it from growing */
+    margin-left: 10px; /* Add left margin to position it */
+  }
+}

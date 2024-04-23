@@ -9,3 +9,5 @@ TODO
 # QR Code para doações
 
 # rever/melhorar formatação
+
+# Incluir tratativa de mensagem para páginas login_required
