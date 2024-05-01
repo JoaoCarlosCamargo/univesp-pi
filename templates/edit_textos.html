@@ -12,7 +12,7 @@
     {% if flash %}
         <div class="flash">{{ flash }}</div>
     {% endif %}
-    <form action="{{ url_for('edit_textos', id=textos.id) }}" method="post">
+    <form action="{{ url_for('edit_textos', id=textos.id) }}" method="post" enctype="multipart/form-data">
         <label for="quem_somos"><b>Quem Somos:</b></label>
 		<textarea id="quem_somos" name="quem_somos">{{ textos.quem_somos }}</textarea>
 		<script>CKEDITOR.replace('quem_somos');</script>
@@ -64,7 +64,7 @@
 		<script>CKEDITOR.replace('semeie');</script>
         <br>
         <hr>
-        <input type="submit" value="Confirmar">
+        <center><button type="submit">Salvar</button></center>
     </form>
 
 {% endblock %}

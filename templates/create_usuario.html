@@ -3,7 +3,7 @@
 {% block content %}
 	<br><br><br>
 	<div id="topo">
-		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fÃ©rtil">
 	</div>
 
 	<hr>
@@ -12,15 +12,41 @@
     {% if flash %}
         <div class="flash">{{ flash }}</div>
     {% endif %}
-    <form action="{{ url_for('create_usuario') }}" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome">
+    <form action="{{ url_for('create_usuario') }}" method="post" onsubmit="return validatePasswords()">
+		<div class="flex-container">
+			<label for="nome"><b>Nome:</b></label>
+			&nbsp;
+			<input type="text" name="nome" id="nome" required>
+        </div>
         <br>
-        <label for="senha">Senha:</label>
+		<div class="flex-container">
+			<label for="senha"><b>Senha:</b></label>
+			&nbsp;
+			<input type="password" name="senha" id="senha" required>
+        </div>
+		<br>
+		<div class="flex-container">
+			<label for="confirm_senha"><b>Confirmar Senha:</b></label>
+			&nbsp;
+			<input type="password" id="confirm_senha" name="confirm_senha" required>
+        </div>
         <br>
-        <textarea name="senha" id="senha"></textarea>
-        <br>
-        <input type="submit" value="Confirmar">
+        <center><button type="submit">Salvar</button></center>
     </form>
+
+    <script>
+        function validatePasswords() {
+            const password = document.getElementById('senha').value;
+            const confirmPassword = document.getElementById('confirm_senha').value;
+
+            if (password !== confirmPassword) {
+                alert('As senhas não coincidem!');
+                return false;
+            }
+
+            // Se as senhas coincidem, envie o formulário
+            return true;
+        }
+    </script>
 
 {% endblock %}

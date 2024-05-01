@@ -77,3 +77,12 @@ nav ul li {
     margin-left: 10px; /* Add left margin to position it */
   }
 }
+
+.container {
+  overflow: hidden; /* Prevent floated elements from pushing the container */
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}

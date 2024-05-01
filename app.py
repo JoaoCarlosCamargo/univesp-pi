@@ -114,7 +114,12 @@ def post(post_id):
 
 @app.route('/semeie')
 def semeie():
-  return render_template('semeie.html')
+    conn = get_db_connection()
+    textos = conn.execute('SELECT * FROM textos').fetchall()
+    contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
+    conn.close()
+
+    return render_template('semeie.html', textos=textos, contato=contato)
 
 @app.route('/proxima')
 def proxima():
@@ -330,11 +335,14 @@ def edit_contato(id):
     conn.close()
 
     if request.method == 'POST':
-        title = request.form['title']
-        content = request.form['content']
+        whatsapp = request.form['whatsapp']
+        facebook = request.form['facebook']
+        instagram = request.form['instagram']
+        email = request.form['email']
+        endereco = request.form['endereco']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('UPDATE contato SET title = ?, content = ? WHERE id = ?', (title, content, id))
+        cursor.execute('UPDATE contato SET whatsapp = ?, facebook = ?, instagram = ?, email = ?, endereco = ? WHERE id = ?', (whatsapp, facebook, instagram, email, endereco, id))
         conn.commit()
         conn.close()
         flash('Contatos alterados com sucesso!')

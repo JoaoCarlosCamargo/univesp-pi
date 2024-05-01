@@ -6,8 +6,4 @@ TODO
 
 # pegar fotos do projeto
 
-# QR Code para doações
-
-# rever/melhorar formatação
-
-# Incluir tratativa de mensagem para páginas login_required
+# manuteção de imagens para exibição

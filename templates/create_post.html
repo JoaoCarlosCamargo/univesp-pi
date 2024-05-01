@@ -3,7 +3,7 @@
 {% block content %}
 	<br><br><br>
 	<div id="topo">
-		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
+		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fÃ©rtil">
 	</div>
 
 	<hr>
@@ -15,15 +15,15 @@
     <form action="{{ url_for('create_post') }}" method="post">
         <hr>
         <label for="title"><b>Título:</b></label>
-        <textarea name="title" id="title"></textarea>
+        <textarea name="title" id="title" required></textarea>
 		<script>CKEDITOR.replace('title');</script>
         <br>
         <hr>
-        <label for="content"><b>Colaboradores:</b></label>
-        <textarea name="content" id="content"></textarea>
+        <label for="content"><b>Postagem:</b></label>
+        <textarea name="content" id="content" required></textarea>
 		<script>CKEDITOR.replace('content');</script>
         <br>
-        <input type="submit" value="Confirmar">
+        <center><button type="submit">Salvar</button></center>
     </form>
 
 {% endblock %}

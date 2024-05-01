@@ -2,55 +2,46 @@
 
 {% block content %}
 	<br><br><br>
-	<div id="topo">
+	<div id="topo1">
 		<img src="{{ url_for('static', filename='img/semear_logo.png') }}" alt="Semear Americana | Semeando em terra fértil">
 	</div>
-
 	<hr>
+
 	<br><br>
 	<h1>Semeie conosco!</h1>
-
-	Temos muitas necessidades para nosso funcionamento integral.
-
-	<br><br>
-
-	<h2>Voluntariado</h2>
-	Contamos com uma dedicada equipe composta por 20 educadores e 4 cozinheiros. Estamos sempre abertos a receber novas pessoas interessadas em integrar-se ao nosso time e contribuir para as iniciativas da Semear.
-
-	<h2>Colaboradores</h2>
-	Constantemente buscamos novos colaboradores que possam apoiar a Semear, contribuindo financeiramente para custear nossas despesas e garantir a continuidade de nossas atividades.
-
-	<h2>Doações</h2>
-	Doações de alimentos, produtos de higiene, materiais de limpeza, materiais escolares e outros são recursos fundamentais para o funcionamento competente da Casa Semear.
-
-	<h2>Refeições</h2>
-	Com o objetivo de suprir a pobreza nutricional vivida, buscamos proporcionar uma refeição completa e balanceada para nossas crianças e adolescentes, abrangendo carboidratos, proteínas, salada e frutas quando possível.
-
-	<h2>Veículo</h2>
-	A ausência de um veículo próprio é um desafio que impacta diversas atividades e a locomoção da Semear. Essa limitação pode dificultar a eficiência e a amplitude de nossas operações.
-
-	<h2>Sede própria</h2>
-	A Semear não possui sede própria, uma falta significativo, especialmente ao estar com alto custo de aluguel e capacidade limitada, resultando em uma lista de espera para cadastro de novas crianças e adolescentes que buscam participar.
-
-	<hr>
-	<br><br>
-	<h1>Você pode nos apoiar de muitas formas. Semeie conosco!</h1>
-
-	<br><br>
-
-	<h2>Colaboradores mensais</h2>
-	Colaboradores mensais comprometem-se a fazer doações mensais de um valor específico determinado pelo mesmo, o qual é utilizado para custear despesas fixas na Casa Semear.
-
 	<br>
-	<h2>Colaboradores eventuais</h2>
-	Colaboradores eventuais apoiam eventos e campanhas realizadas periodicamente. Eles acompanham solicitações de doações por meio de redes sociais e WhatsApp, contribuindo ativamente para a realização dessas iniciativas.
+		<center>
+		<img src="{{ url_for('static', filename='img/qrcode-pix.png') }}" alt="Pix Semear Americana" width="140" height="140">
+		<br>
+		<b>Chave PIX CNPJ:</b> 32.787.100/0001-04
+		<br>
+		<b>Nome:</b> Semear Americana
+		</center>
 
-	<br>
-	<h2>Doações materiais</h2>
-	Destacamos a importância do recebimento doações físicas como alimentos, produtos de limpeza, itens de higiene, materiais escolares e outros itens fundamentais para o uso diário.
+		<hr>
 
-	<br>
-	<h2>Empresa que semeia</h2>
-	Em 2024, lançamos o projeto com o objetivo de buscar parcerias empresariais que semeiem em terra fértil: a vida de nossas crianças. Empresas  participantes receberão um certificado de Empresa Parceira como expressão de gratidão pelo apoio dedicado às nossas iniciativas.
+		<center>
+			{% for contato in contato %}
+				<a href="{{ contato['instagram'] }}">
+				  <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" width="40" height="40">
+				</a>&nbsp;&nbsp;&nbsp;
+				<a href="{{ contato['facebook'] }}">
+				  <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" width="40" height="40">
+				</a>&nbsp;&nbsp;&nbsp;
+				<a href="https://api.whatsapp.com/send?phone={{ contato['whatsapp'] }}&text=Olá! Venho a partir do site.">
+				  <img src="{{ url_for('static', filename='img/whatsapp.png') }}" alt="Whatsapp" width="40" height="40">
+				</a>
+				<br><br>
+				<a href="mailto:{{ contato['email'] }}">{{ contato['email'] }}</a>
+			{% endfor %}
+		</center>
+
+		<hr>
+
+		{% autoescape off %}
+		{% for texto in textos %}
+		  {{ texto['semeie'] }}
+		{% endfor %}
+		{% endautoescape %}
 
 {% endblock %}

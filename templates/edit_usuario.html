@@ -13,16 +13,25 @@
         <div class="flash">{{ flash }}</div>
     {% endif %}
     <form action="{{ url_for('edit_usuario', id=usuario.id) }}" method="post" onsubmit="return validatePasswords()">
-        <label for="nome">Usuário:</label>
-        <input type="text" name="nome" id="nome" value="{{ usuario.nome }}">
+		<div class="flex-container">
+			<label for="nome"><b>Usuário:</b></label>
+			&nbsp;
+			<input type="text" name="nome" id="nome" value="{{ usuario.nome }}" required>
+        </div>
         <br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" value="{{ usuario.senha }}">
+		<div class="flex-container">
+			<label for="senha"><b>Senha:</b></label>
+			&nbsp;
+			<input type="password" id="senha" name="senha" value="{{ usuario.senha }}" required>
+        </div>
 		<br>
-		<label for="confirm_senha">Confirmar Senha:</label>
-		<input type="password" id="confirm_senha" name="confirm_senha" value="{{ usuario.senha }}">
+		<div class="flex-container">
+			<label for="confirm_senha"><b>Confirmar Senha:</b></label>
+			&nbsp;
+			<input type="password" id="confirm_senha" name="confirm_senha" value="{{ usuario.senha }}" required>
+        </div>
 		<br>
-        <input type="submit" value="Confirmar">
+        <center><button type="submit">Salvar</button></center>
     </form>
 
     <script>
