@@ -12,6 +12,20 @@
 
 	<br>
 
+	<center>
+		<a href="#textos">Textos do site</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="#contato">Contato</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="#usuarios">Usuários</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="#posts">Postagens</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="#reports">Documentos</a>
+	</center>
+
+	<br>
+
 {% with messages = get_flashed_messages() %}  {% if messages %}
     <ul class="flash-messages">
       {% for message in messages %}
@@ -32,7 +46,8 @@
 	<hr>
 	<br>
 
-	<div id="contato">
+	<div id="textos">
+	<br><br><br>
     <h2>Configuração de textos do Site</h2>
     {% if not textos %}
         <p>Configuração não cadastrada.</p>
@@ -50,6 +65,7 @@
 	<br>
 
 	<div id="contato">
+	<br><br><br>
     <h2>Configurações de Contato</h2>
     {% if not contato %}
         <p>Configuração não cadastrada.</p>
@@ -88,6 +104,7 @@
 	<br>
 
 	<div id="usuarios">
+	<br><br><br>
     <h2>Usuários</h2>
     <a href="{{ url_for('create_usuario') }}" class="btn btn-sm btn-success">Novo Usuário</a>
     <br>
@@ -125,6 +142,7 @@
 	<br>
 
 	<div id="posts">
+	<br><br><br>
 	<h2>Postagens</h2>
     <a href="{{ url_for('create_post') }}" class="btn btn-sm btn-success">Nova Postagem</a>
     <br>
@@ -162,16 +180,18 @@
 	<br>
 
 	<div id="reports">
-	<h2>Relatórios</h2>
+	<br><br><br>
+	<h2>Documentos</h2>
     <a href="{{ url_for('create_report') }}"  class="btn btn-sm btn-success">Novo Relatório</a>
     <br>
     {% if not reports %}
-        <p>Nenhum relatório cadastrado.</p>
+        <p>Nenhum documentos cadastrado.</p>
     {% else %}
         <table class="table">
             <thead>
                 <tr>
                     <th width="150">Ações</th>
+                    <th>Ordem</th>
                     <th>Descrição</th>
                     <th>Arquivo</th>
                 </tr>
@@ -183,6 +203,7 @@
                             <a href="{{ url_for('edit_report', id=report.id) }}" class="btn btn-sm btn-warning">Editar</a>
                             <a href="{{ url_for('excluir_report', id=report.id) }}" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
+                        <td>{{ report.ordem }}</td>
                         <td>{{ report.description }}</td>
                         <td>
                         <a href="{{ url_for('download_report', id=report.id) }}">{{ report.report_name }}</a></td>

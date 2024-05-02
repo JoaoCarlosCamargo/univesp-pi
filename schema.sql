@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS reports (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   description TEXT NOT NULL,
   report_file BLOB NOT NULL,
-  report_name TEXT NOT NULL
+  report_name TEXT NOT NULL,
+  ordem INT
 );
 
 CREATE TABLE IF NOT EXISTS textos (

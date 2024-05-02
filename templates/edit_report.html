@@ -16,7 +16,7 @@
 		<div class="flex-container">
 			<label for="description"><b>Descrição:</b></label>
 			&nbsp;
-			<input type="text" name="description" id="description" required value="{{ report.description }}" size="100">
+			<input type="text" name="description" id="description" required value="{{ report.description }}" size="80">
 		</div>
         <br>
 		<div class="flex-container">
@@ -24,6 +24,12 @@
 			&nbsp;
 			<input type="file" name="report_file" id="report_file" accept=".pdf" required  value="{{ report.report_file }}">
         </div>
+        <br>
+		<div class="flex-container">
+			<label for="ordem"><b>Ordem de exibição:</b></label>
+			&nbsp;
+			<input type="text" name="ordem" id="ordem" required value="{{ report.ordem }}" size="5">
+		</div>
         <br>
         <center><button type="submit">Salvar</button></center>
     </form>

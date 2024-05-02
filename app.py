@@ -73,7 +73,7 @@ def admin():
     posts = conn.execute('SELECT * FROM posts').fetchall()
     contato = conn.execute('SELECT * FROM contato').fetchall()
     usuarios = conn.execute('SELECT * FROM usuarios').fetchall()
-    reports = conn.execute('SELECT * FROM reports').fetchall()
+    reports = conn.execute('SELECT * FROM reports ORDER BY ordem').fetchall()
     textos = conn.execute('SELECT * FROM textos').fetchall()
     conn.close()
     return render_template('admin.html', usuario=current_user.nome, posts=posts, contato=contato, usuarios=usuarios, reports=reports, textos=textos)
@@ -101,7 +101,7 @@ def index():
     contato = conn.execute('SELECT whatsapp, facebook, instagram, email, endereco FROM contato').fetchall()
     mensagem_bottom = conn.execute('SELECT texto FROM mensagem_bottom').fetchall()
     textos = conn.execute('SELECT * FROM textos').fetchall()
-    reports = conn.execute('SELECT * FROM reports').fetchall()
+    reports = conn.execute('SELECT * FROM reports ORDER BY ordem').fetchall()
     conn.close()
     global indice_atual
     imagem_atual = imagens[indice_atual]
@@ -237,6 +237,7 @@ def edit_usuario(id):
 def create_report():
     if request.method == 'POST':
         description = request.form['description']
+        ordem = request.form['ordem']
         if 'report_file' not in request.files:
             flash('Selecione um arquivo PDF para upload')
             return redirect(url_for('create_report'))
@@ -250,7 +251,7 @@ def create_report():
             report_data = report_file.read()
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute('INSERT INTO reports (description, report_name, report_file) VALUES (?, ?, ?)', (description, filename, report_data))
+            cursor.execute('INSERT INTO reports (description, report_name, report_file, ordem) VALUES (?, ?, ?, ?)', (description, filename, report_data, ordem))
             conn.commit()
             conn.close()
             flash('Relatório cadastrado com sucesso!')
@@ -305,6 +306,7 @@ def edit_report(id):
     if request.method == 'POST':
         description = request.form['description']
         report_file = request.files['report_file']
+        ordem = request.form['ordem']
         
         # Extract filename from report_file object
         filename = report_file.filename
@@ -313,7 +315,7 @@ def edit_report(id):
             report_data = report_file.read()
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute('update reports set description = ?, report_name = ?, report_file = ? where id = ?', (description, filename, report_data, id))
+            cursor.execute('update reports set description = ?, report_name = ?, report_file = ?, ordem = ? where id = ?', (description, filename, report_data, ordem, id))
             conn.commit()
             conn.close()
             flash('Relatório alterado com sucesso!')

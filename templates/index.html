@@ -72,6 +72,20 @@
 						.then(response => response.json())
 						.then(data => {
 							imagemAtual.src = '{{ url_for('static', filename='') }}' + data.imagem; // Removed extra comma and closing parenthesis
+
+						  // Ajustar dimensões da imagem após o carregamento
+						  imagemAtual.onload = function() {
+							const imagemProporcao = imagemAtual.naturalWidth / imagemAtual.naturalHeight;
+							const containerWidth = imagemAtual.parentNode.offsetWidth; // Largura do container da imagem
+
+							if (containerWidth / imagemProporcao < imagemAtual.naturalHeight) {
+							  imagemAtual.style.width = 'auto';
+							  imagemAtual.style.height = containerWidth / imagemProporcao + 'px';
+							} else {
+							  imagemAtual.style.width = containerWidth + 'px';
+							  imagemAtual.style.height = 'auto';
+							}
+						  };
 						});
 				}
 
